@@ -1,19 +1,17 @@
 package com.example.my_assigned_application;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 
-import com.example.my_assigned_application.database.PantryDatabaseHelper;
-import com.example.my_assigned_application.model.Recipe;
+import com.example.my_assigned_application.ui.PantryFragment;
+import com.example.my_assigned_application.ui.SettingsFragment;
+import com.example.my_assigned_application.ui.SuggestedFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
-
+/** Host activity: shows one fragment at a time and switches them from the bottom bar. */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,17 +19,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        BottomNavigationView nav = findViewById(R.id.bottomNav);
+        nav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            Fragment fragment;
+            int title;
+
+            if (id == R.id.nav_pantry) {
+                fragment = new PantryFragment();
+                title = R.string.nav_pantry;
+            } else if (id == R.id.nav_suggested) {
+                fragment = new SuggestedFragment();
+                title = R.string.nav_suggested;
+            } else {
+                fragment = new SettingsFragment();
+                title = R.string.nav_settings;
+            }
+
+            setTitle(title);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .commit();
+            return true;
         });
 
-        // TEMPORARY database test - will be removed in Step 3
-        PantryDatabaseHelper helper = PantryDatabaseHelper.getInstance(this);
-        List<Recipe> recipes = helper.getAllRecipes();
-        Log.d("PantryTest", "Recipes seeded: " + recipes.size());
-        Log.d("PantryTest", "First recipe: " + recipes.get(0).getName()
-                + " has " + recipes.get(0).getIngredients().size() + " ingredients");
+        // Show the Pantry tab on first launch (not again after a rotation)
+        if (savedInstanceState == null) {
+            nav.setSelectedItemId(R.id.nav_pantry);
+        }
     }
 }
