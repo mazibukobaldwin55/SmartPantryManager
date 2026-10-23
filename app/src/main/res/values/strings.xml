@@ -44,4 +44,16 @@
         <item>tbsp</item>
         <item>cup</item>
     </string-array>
+    <!-- Suggested recipes -->
+    <string name="empty_suggested">No recipes match your pantry yet - add more ingredients</string>
+    <plurals name="suggested_summary">
+        <item quantity="one">%d recipe you can cook right now</item>
+        <item quantity="other">%d recipes you can cook right now</item>
+    </plurals>
+    <string name="recipe_needs">Needs: %1$s</string>
+
+    <!-- Recipe detail -->
+    <string name="ingredients">Ingredients</string>
+    <string name="method">Method</string>
+    <string name="error_recipe_not_found">Recipe not found</string>
 </resources>
