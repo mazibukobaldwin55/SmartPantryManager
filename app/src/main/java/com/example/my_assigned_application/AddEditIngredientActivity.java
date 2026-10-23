@@ -1,5 +1,5 @@
 package com.example.my_assigned_application;
-
+import com.example.my_assigned_application.util.SettingsManager;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -84,9 +84,10 @@ public class AddEditIngredientActivity extends AppCompatActivity {
             setTitle(R.string.title_edit);
             fillForm(existingItem);
             buttonDelete.setVisibility(View.VISIBLE);
-        } else {
-            setTitle(R.string.add_ingredient);
-        }
+        }  else {
+        setTitle(R.string.add_ingredient);
+        selectUnit(new SettingsManager(this).getDefaultUnit());
+    }
 
         editExpiry.setOnClickListener(v -> showDatePicker());
         buttonClearDate.setOnClickListener(v -> setExpiry(null));
@@ -98,15 +99,18 @@ public class AddEditIngredientActivity extends AppCompatActivity {
     private void fillForm(PantryItem item) {
         editName.setText(item.getName());
         editQuantity.setText(QuantityFormat.format(item.getQuantity()));
-        for (int i = 0; i < units.length; i++) {
-            if (units[i].equals(item.getUnit())) {
-                spinnerUnit.setSelection(i);
-                break;
-            }
-        }
+        selectUnit(item.getUnit());
         setExpiry(item.getExpiryDate());
     }
-
+    /** Selects the given unit in the dropdown (does nothing if it isn't in the list). */
+    private void selectUnit(String unit) {
+        for (int i = 0; i < units.length; i++) {
+            if (units[i].equals(unit)) {
+                spinnerUnit.setSelection(i);
+                return;
+            }
+        }
+    }
     private void setExpiry(String date) {
         expiryDate = date;
         editExpiry.setText(date == null ? "" : date);

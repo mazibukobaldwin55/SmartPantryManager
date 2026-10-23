@@ -18,6 +18,8 @@ import com.example.my_assigned_application.R;
 import com.example.my_assigned_application.adapter.PantryAdapter;
 import com.example.my_assigned_application.database.PantryDatabaseHelper;
 import com.example.my_assigned_application.model.PantryItem;
+import com.example.my_assigned_application.util.ExpiryChecker;
+import com.example.my_assigned_application.util.SettingsManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -26,8 +28,10 @@ import java.util.List;
 public class PantryFragment extends Fragment {
 
     private PantryDatabaseHelper db;
+    private SettingsManager settings;
     private PantryAdapter adapter;
     private TextView emptyView;
+    private TextView bannerView;
 
     @Nullable
     @Override
@@ -41,7 +45,9 @@ public class PantryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         db = PantryDatabaseHelper.getInstance(requireContext());
+        settings = new SettingsManager(requireContext());
         emptyView = view.findViewById(R.id.textEmpty);
+        bannerView = view.findViewById(R.id.textExpiryBanner);
 
         RecyclerView recycler = view.findViewById(R.id.recyclerPantry);
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -68,8 +74,33 @@ public class PantryFragment extends Fragment {
     }
 
     private void loadItems() {
+        boolean alertsOn = settings.isExpiryAlertsEnabled();
+        int alertDays = settings.getAlertDays();
+
         List<PantryItem> items = db.getAllPantryItems();
+        adapter.setExpiryAlerts(alertsOn, alertDays);
         adapter.setItems(items);
         emptyView.setVisibility(items.isEmpty() ? View.VISIBLE : View.GONE);
+
+        // Banner: how many items are expired or expiring soon
+        int flagged = 0;
+        if (alertsOn) {
+            for (PantryItem item : items) {
+                ExpiryChecker.Status status =
+                        ExpiryChecker.statusOf(item.getExpiryDate(), alertDays);
+                if (status == ExpiryChecker.Status.EXPIRED
+                        || status == ExpiryChecker.Status.EXPIRING_SOON) {
+                    flagged++;
+                }
+            }
+        }
+
+        if (flagged > 0) {
+            bannerView.setText(getResources().getQuantityString(
+                    R.plurals.expiring_banner, flagged, flagged));
+            bannerView.setVisibility(View.VISIBLE);
+        } else {
+            bannerView.setVisibility(View.GONE);
+        }
     }
 }
