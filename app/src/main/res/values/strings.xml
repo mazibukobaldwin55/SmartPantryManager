@@ -56,4 +56,34 @@
     <string name="ingredients">Ingredients</string>
     <string name="method">Method</string>
     <string name="error_recipe_not_found">Recipe not found</string>
+    <!-- Settings -->
+    <string name="settings_expiry_title">Expiring-soon alerts</string>
+    <string name="settings_expiry_desc">Highlight pantry items that have expired or will expire soon</string>
+    <string name="settings_alert_window">Alert me when an item expires within</string>
+    <string name="settings_units_title">Units</string>
+    <string name="settings_default_unit">Default unit for new ingredients</string>
+    <string name="settings_about_title">About</string>
+    <string name="settings_about_text">Smart Pantry Manager tracks the ingredients you already have and only suggests recipes you can cook with them, so nothing goes to waste.</string>
+
+    <string-array name="alert_window_labels">
+        <item>1 day</item>
+        <item>3 days</item>
+        <item>7 days</item>
+    </string-array>
+    <integer-array name="alert_window_values">
+        <item>1</item>
+        <item>3</item>
+        <item>7</item>
+    </integer-array>
+
+    <!-- Expiry display on the pantry list -->
+    <string name="expiry_plain">Expires: %1$s</string>
+    <string name="expiry_today">Expires today</string>
+    <string name="expiry_tomorrow">Expires tomorrow</string>
+    <string name="expiry_in_days">Expires in %1$d days</string>
+    <string name="expired_on">Expired: %1$s</string>
+    <plurals name="expiring_banner">
+        <item quantity="one">%d item is expired or expiring soon</item>
+        <item quantity="other">%d items are expired or expiring soon</item>
+    </plurals>
 </resources>
