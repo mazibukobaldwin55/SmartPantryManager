@@ -1,10 +1,13 @@
 Name: Baldwin Sphesihle Mazibuko
+
 Student Number: 402310972
 
 ===Smart Pantry Android Application===
+
 A smart, intuitive Android application built to help users manage their pantry inventory, track food item expiration dates, minimize food waste, and streamline meal planning.
 
 --Features--
+     
      +Inventory Management: Track, organize, and monitor pantry and kitchen items in real time.
      +Expiration Tracking: Receive notifications and alerts for items nearing their expiration dates to reduce waste.
      +Category & Storage Organization: Categorize items by location (e.g., Pantry, Refrigerator, Freezer) or type (e.g., Produce, Dairy, Dry Goods).
@@ -12,6 +15,7 @@ A smart, intuitive Android application built to help users manage their pantry i
      +Modern Android UI: Clean and user-friendly interface designed according to Android Material Design guidelines.
 
 --Tech Stack & Tools--
+     
      +Language: Kotlin
      +Build System: Gradle (Version 9.5.0, Kotlin DSL)
      +Target OS: Android (API level configured in app/build.gradle.kts)
@@ -19,6 +23,7 @@ A smart, intuitive Android application built to help users manage their pantry i
      +UI Framework: Android Jetpack / Material Components
 
 --Project Structure--
+   
     SmartPantry/
 |-- app/
 |   |-- build.gradle.kts     # Module-level Gradle configuration
