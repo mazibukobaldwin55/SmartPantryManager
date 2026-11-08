@@ -45,8 +45,10 @@ SmartPantry/
       +Android SDK: API Level 24 (Android 7.0) or higher
 
 1.Clone the repository:
+    
     Bash:  git clone https://github.com/mazibukobaldwin55/smart-pantry-android.git
            cd smart-pantry-android
+    
     Powershell: git clone https://github.com/mazibukobaldwin55/smart-pantry-android.git
                 cd smart-pantry-android
 
