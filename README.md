@@ -24,12 +24,18 @@ A smart, intuitive Android application built to help users manage their pantry i
 
 --Project Structure--
    
-    SmartPantry/
+SmartPantry/
+
 |-- app/
+
 |   |-- build.gradle.kts     # Module-level Gradle configuration
+
 |   |-- src/                 # Application source code and layout resources
+
 |-- build.gradle.kts         # Top-level Gradle configuration
+
 |-- settings.gradle.kts      # Project settings
+
 |-- .gradle/
 
 --Getting Started--
