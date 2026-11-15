@@ -1,6 +1,5 @@
 Name: Baldwin Sphesihle Mazibuko
 
-Student Number: 402310972
 
 ===Smart Pantry Android Application===
 
